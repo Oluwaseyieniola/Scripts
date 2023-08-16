@@ -1,14 +1,9 @@
+import 'dart:io';
+
 import 'package:dcli/dcli.dart';
+import 'package:yaml/yaml.dart';
 
 void main() {
-  /*String multiLineString = ''' 
-  This is a multiline string
-  it can happen at anytime
-  wherever you want .
-  ''';
-  print(multiLineString); */
-
-// a multilie string here
   print('''#  --------------------
   # Release new Version
   # --------------------
@@ -22,7 +17,7 @@ void main() {
       ));
 
 // read a file from the pubspec, ultimately loads the older version
-  /*try {
+  try {
     final pubspec = File('./pubspec.yaml').readAsStringSync();
 
     final currentVersion = loadYaml(pubspec)['version'];
@@ -35,5 +30,18 @@ void main() {
     print('# Pubspec updated to the version $newVersion');
   } catch (e) {
     printerr('Failed to update to the version $newVersion\nError: $e');
-  } */
+  }
+
+  try {
+    final pubspecFile = File('./pubspec.yaml');
+    final pubspecContent = pubspecFile.readAsStringSync();
+
+    final currentVersion = loadYaml(pubspecContent)['version'];
+
+    // creating a backup here
+    final backupFilename = './pubspec_backup.yaml';
+    pubspecFile.copySync(backupFilename);
+  } catch (e) {
+    printerr('Failed to update to the version');
+  }
 }
