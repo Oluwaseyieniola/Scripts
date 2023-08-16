@@ -1,2 +1,1 @@
-A sample command-line application with an entrypoint in `bin/`, library code
-in `lib/`, and example unit test in `test/`.
+A command line application written in dart that automates pubspec process of updating pubspec versions as well as creating a backup of the old version
